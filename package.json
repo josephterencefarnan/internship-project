@@ -7,7 +7,8 @@
     "test": "test"
   },
   "dependencies": {
-    "chai": "^4.2.0"
+    "chai": "^4.2.0",
+    "chart.js": "^2.9.3"
   },
   "devDependencies": {
     "mocha": "^8.1.1"
