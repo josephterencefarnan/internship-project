@@ -20,13 +20,26 @@ var JIT = {};
         valuableValues.forEach((x, i, a) => {
             if (i < valuableValues.length - 1){
                 delta = calculateDelta(delta, x[2], valuableValues[i+1][2], i)                
-                dateDelta = calculateDelta(delta, x[0].getTime(), valuableValues[i+1][0].getTime(), i)
+//                dateDelta = calculateDelta(delta, x[0].getTime(), sorted[i+1][0].getTime(), i)
             } 
         });
-
+//        sorted.forEach((x, i, a) => {
+  //          if (i < sorted.length - 1){
+//                delta = calculateDelta(delta, x[2], valuableValues[i+1][2], i)                
+    //            dateDelta = calculateDelta(delta, x[0].getTime(), sorted[i+1][0].getTime(), i)
+        //    } 
+      //  });
         const output = sorted.map((x, i, a) => {
             return [x[0], x[2]]
         })
+ //delta = 0;
+        sorted.forEach((x, i, a) => {
+            if (i < sorted.length - 1){
+//                delta = calculateDelta(delta, x[2], valuableValues[i+1][2], i)                
+                dateDelta = calculateDelta(dateDelta, x[0].getTime(), sorted[i+1][0].getTime(), i)
+            } 
+        });
+
         if (threshhold !== undefined){
             while (output[output.length - 1][1] < threshhold){
                 newDate = new Date(output[output.length -1][0].getTime() + dateDelta)
