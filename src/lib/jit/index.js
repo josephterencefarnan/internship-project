@@ -9,7 +9,13 @@ var JIT = {};
         var dateDelta = input[0][0]
         var valuableValues
         if (signifigance === undefined) {
+            sorted.forEach((x, i, a) => {
+                if (x[2] === undefined){
+                    x[2] = x[1]
+                } 
+            })
             valuableValues = sorted
+
         }
         else {
             valuableValues = sorted.filter(function(x){
