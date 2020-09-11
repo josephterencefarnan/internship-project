@@ -52,7 +52,12 @@ describe("JIT", function () {
             expect(delta).to.eql(2)
             delta = JIT.calculateDelta(5, 12, 14, 2)
             expect(delta).to.eql(4)            
-        })
+        });
+        it("delta changes", function() {
+            let delta = JIT.calculateDelta(-5, 95, 91, 1, true);
+            expect(delta).to.eql(-3);
+
+        });
     })
 })
 var sampleOutput = [5, 10, 9, 8, 75, 350, 400]

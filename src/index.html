@@ -15,7 +15,7 @@ var input = [
             ]
 const request = new XMLHttpRequest();
 request.addEventListener("load", drawChart)
-request.open("GET", "/src/timedata.json")
+request.open("GET", "http://localhost:8080/shampoo")
 request.send()
 function drawChart(event){
     if (event.target.status === 200){
@@ -40,7 +40,7 @@ function transform(data){
     })
 }
 function makeChart(input, threshhold, importance){
-    var result = JIT.userInterface(input, importance, threshhold)
+    var result = JIT.userInterface(input, importance, threshhold, true)
 var labels = result.map(function (i){
     return i[0]
 })
