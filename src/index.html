@@ -1,0 +1,89 @@
+<script src="../node_modules/chart.js/dist/Chart.js"></script>
+<script src="./lib/jit/index.js"></script>
+<script src="main.js"></script>
+<body>
+    <div id = "response-message"></div>
+    <div style="width: 400px; height: 400px;">
+</div><canvas id="myChart"></canvas></div></body>
+<script>
+var ctx = document.getElementById('myChart').getContext('2d');
+var input = [ 
+                [new Date("2020-08-10T15:32:45.123Z"), "1", 10],
+                [new Date("2020-08-11T15:32:45.123Z"), "1", 11],
+                [new Date("2020-08-12T15:32:45.123Z"), "0", 11],
+                [new Date("2020-08-13T15:32:45.123Z"), "1", 12]            
+            ]
+const request = new XMLHttpRequest();
+request.addEventListener("load", drawChart)
+request.open("GET", "http://localhost:8080/shampoo")
+request.send()
+function drawChart(event){
+    if (event.target.status === 200){
+var data = JSON.parse(event.target.response)
+console.log(data)
+makeChart(transform(data), 800)
+//refactor, 37 down -> a func, morph data to shape for JIT
+    } else if (event.target.status < 300){
+document.getElementById("response-message").innerHTML = "unknown error: " + event.target.statusText
+    } else if (event.target.status < 400){
+document.getElementById("response-message").innerHTML = "redirection: " + event.target.statusText
+    } else if (event.target.status < 500){
+document.getElementById("response-message").innerHTML = "client error: " + event.target.statusText
+    } else {
+document.getElementById("response-message").innerHTML = "server error: " + event.target.statusText
+    }
+    console.log("Stop")
+}
+function transform(data){
+    return data.map((x) => {
+        return [new Date(x.month), x.sales]
+    })
+}
+function makeChart(input, threshhold, importance){
+    var result = JIT.userInterface(input, importance, threshhold, true)
+var labels = result.map(function (i){
+    return i[0]
+})
+var data = result.map(function (i){
+    return i[1]
+})
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels,
+        datasets: [{
+            label: '#',
+            data,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+myChart.resize()
+}
+
+</script>

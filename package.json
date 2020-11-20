@@ -1,0 +1,31 @@
+{
+  "name": "internship-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "chai": "^4.2.0",
+    "chart.js": "^2.9.3",
+    "restify": "^8.5.1",
+    "restify-cors-middleware": "^1.1.1"
+  },
+  "devDependencies": {
+    "mocha": "^8.1.1"
+  },
+  "scripts": {
+    "test": "mocha test/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/josephterencefarnan/internship-project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/josephterencefarnan/internship-project/issues"
+  },
+  "homepage": "https://github.com/josephterencefarnan/internship-project#readme"
+}
